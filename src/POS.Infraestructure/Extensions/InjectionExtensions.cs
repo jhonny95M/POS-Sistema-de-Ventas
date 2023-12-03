@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using POS.Infraestructure.Persistences.Contexts;
+using POS.Infraestructure.Persistences.Interfaces;
+using POS.Infraestructure.Persistences.Repositories;
 
 namespace POS.Infraestructure.Extensions
 {
@@ -13,6 +15,7 @@ namespace POS.Infraestructure.Extensions
             services.AddDbContext<POSContext>(options =>            
                 options.UseSqlServer(configuration.GetConnectionString("POSConnection"),b=>b.MigrationsAssembly(assembly)),ServiceLifetime.Transient
             );
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             return services;
         }
     }

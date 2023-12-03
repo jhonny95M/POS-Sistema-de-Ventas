@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace POS.Infraestructure.Commons.Bases
+namespace POS.Infraestructure.Commons.Bases.Request
 {
     public class BasePaginationRequest
     {
@@ -18,7 +18,7 @@ namespace POS.Infraestructure.Commons.Bases
             get => NumRecordsPage;
             set
             {
-                NumRecordsPage = (value > NumMaxRecordsPage) ? NumMaxRecordsPage : value;
+                NumRecordsPage = value > NumMaxRecordsPage ? NumMaxRecordsPage : value;
             }
         }
     }
