@@ -17,7 +17,7 @@ namespace POS.Api.Controllers
         {
             this.categoryApplication = categoryApplication;
         }
-        [HttpPost]
+        [HttpPost("ListCategories")]
         public async Task<IActionResult> ListCategories([FromBody]BaseFiltersRequest filters)
         {
             var response =await categoryApplication.ListCategories(filters);

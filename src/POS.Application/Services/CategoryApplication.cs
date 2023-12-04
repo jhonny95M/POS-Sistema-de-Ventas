@@ -28,7 +28,7 @@ public class CategoryApplication : ICategoryApplication
     public async Task<BaseResponse<CategoryResponseDto>> CategoryById(int id)
     {
         var response=new BaseResponse<CategoryResponseDto>();
-        var category=await unitOfWork.CategoryRepository.CategoryById(id);
+        var category=await unitOfWork.CategoryRepository.GetByIdAsync(id);
         if (category is not null)
         {
             response.IsSucces = true;
@@ -63,8 +63,8 @@ public class CategoryApplication : ICategoryApplication
             return response;
         }
         var category = mapper.Map<Category>(requestDto);
-        category.CategoryId = id;
-        response.Data = await unitOfWork.CategoryRepository.EditCategory(category);
+        category.Id = id;
+        response.Data = await unitOfWork.CategoryRepository.EditAsync(category);
         if (response.Data)
         {
             response.IsSucces = true;
@@ -99,7 +99,7 @@ public class CategoryApplication : ICategoryApplication
     public async Task<BaseResponse<IEnumerable<CategorySelectResponseDto>>> ListSelectCategories()
     {
         var response=new BaseResponse<IEnumerable<CategorySelectResponseDto>>();
-        var categories = await unitOfWork.CategoryRepository.ListSelectCategories();
+        var categories = await unitOfWork.CategoryRepository.GetAllAsync();
         if(categories is not null)
         {
             response.IsSucces=true;
@@ -126,7 +126,7 @@ public class CategoryApplication : ICategoryApplication
             return response;
         }
         var category = mapper.Map<Category>(requestDto);
-        response.Data = await unitOfWork.CategoryRepository.RegisterCategory(category);
+        response.Data = await unitOfWork.CategoryRepository.RegisterAsync(category);
         if (response.Data)
         {
             response.IsSucces = true;
@@ -150,7 +150,7 @@ public class CategoryApplication : ICategoryApplication
             response.Message = ReplyMessage.MESSAGE_QUERY_EMPTY;
             return response;
         }
-        response.Data = await unitOfWork.CategoryRepository.RemoveCategory(id);
+        response.Data = await unitOfWork.CategoryRepository.RemoveAsync(id);
         if (response.Data)
         {
             response.IsSucces = true;
