@@ -18,12 +18,14 @@ namespace POS.Application.Mappers
         public CategoryMappingsProfile()
         {
             CreateMap<Category,CategoryResponseDto>()
+                .ForMember(c=>c.CategoryId,c=>c.MapFrom(c=>c.Id))
                 .ForMember(c=>c.StateCategory,c=>c.MapFrom(y=>y.State.Equals((int)StateTypes.Active)?"Activo":"Inactivo"))
                 .ReverseMap();
             CreateMap<BaseEntityResponse<Category>, BaseEntityResponse<CategoryResponseDto>>()
                 .ReverseMap();
             CreateMap<CategoryRequestDto, Category>();
             CreateMap<Category,CategorySelectResponseDto>()
+                .ForMember(c=>c.CategoryId,c=>c.MapFrom(c=>c.Id))
                 .ReverseMap();
         }
     }
